@@ -1,8 +1,4 @@
-import sys
-from typing import List
-
-
-def incr(t: List[int]) -> bool:
+def incr(t: list[int]) -> bool:
     t[0] += 1
 
     for i in range(len(t) - 1):
@@ -14,7 +10,7 @@ def incr(t: List[int]) -> bool:
     return t[len(t) - 1] <= 1
 
 
-def num(t: List[int]) -> int:
+def num(t: list[int]) -> int:
     b = 1
     res = 0
 
@@ -23,7 +19,7 @@ def num(t: List[int]) -> int:
         b *= 3
     return res
 
-def show(t: List[int], neg: bool=False):
+def show(t: list[int], neg: bool=False):
     n = num(t)
     if not neg and n < 0:
         return
@@ -41,6 +37,8 @@ def table(k: int, neg: bool=False):
 
 
 if __name__ == "__main__":
+    import sys
+
     neg = len(sys.argv) > 2
     k = int(sys.argv[1])
 
