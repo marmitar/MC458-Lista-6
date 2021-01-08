@@ -1,16 +1,46 @@
-% \subsection{a} \label{sec:2:a}
+\begin{theorem}[subestrutura ótima]
+    Sejam $k > 0$ e $n$ um inteiro com representação mínima $n = t_0 + t_1 \cdot 3 + \cdots + t_k \cdot 3^k$. Então, $t_1 + t_2 \cdot 3 + \cdots + t_k \cdot 3^{k-1}$ é uma representação mínima de $\dfrac{n - t_0}{3}$.
+\end{theorem}
 
-% \begin{theorem}[subestrutura ótima]
-%     Seja $P$ um percurso da aldeia $A_1$ até $A_n$ com custo mínimo. Então, todo subpercurso $R \subseteq P$ que termina em $A_n$ também é mínimo.
-% \end{theorem}
+\begin{proof}[\textbf{Demonstração}]
+    Considere $m = (n - t_0) / 3$ e sua representação mínima tem tamanho $l^*$. Suponha agora uma representação $m = s_0 + s_1 \cdot 3 + \cdots + s_l \cdot 3^l$ que não é ótima, isto é, $l < l^*$. Logo, temos que:
+    \begin{align*}
+        n &= 3 m + t_0 \\
+        &= t_0 + 3 \left(s_0 + s_1 \cdot 3 + \cdots + s_l \cdot 3^l\right) \\
+        &= t_0 + s_0 \cdot 3 + s_1 \cdot 3^2 + \cdots + s_l \cdot 3^{l+1} \\
+        &= z_0 + z_1 \cdot 3 + z_2 \cdot 3^2 + \cdots + z_{l + 1} \cdot 3^{l+1}
+    \end{align*}
+\end{proof}
 
-% \begin{proof}[\textbf{Demonstração}]
-%     Suponha um percurso $P$ com custo $c(P)$ mínimo de $A_1$ até $A_n$ e uma aldeia $A_{1 \leq k \leq n}$ como parte do percurso. Logo, temos o subpercurso $R \subseteq P$ de $A_k$ até $A_n$. Suponha também um percurso $R'$ de $A_k$ a $A_n$ com custo $c\left(R'\right)$ mínimo.
+\begin{proof}
+    Caso base: $n = 0$. Logo, $t_0 = 0$ e $k = 0$.
 
-%     Assim, se $c\left(R'\right) < c(R)$ , então podemos formar o percurso total $P' = (P \setminus R) \cup R'$, tal que $c\left(P'\right) = c(P) - c(R) + c\left(R'\right) < c(P)$. Ou seja, $P$ não poderia ser considerado mínimo.
+    Passo indutivo:
+\end{proof}
 
-%     Logo, $c(R) \leq c\left(R'\right)$, isto é, $R$ deve ser mínimo. Além disso, como $A_k$ era arbitrário, todo subpercurso de $P$ também deve ter custo mínimo.
-% \end{proof}
+\begin{proof}
+    Suponha $n$ tal que para todo $m < n$ é único.
+
+    Caso $n = 0$: Considere uma representação de tamanho $k \in \natural$ para 0. Vamos provar por indução em $k$ que todos os seus termos são 0. A unicidade da representação do 0 decorre disso.
+
+    Caso base: $k = 0$. Logo, $0 = \sum_{i = 0}^0 3^i t_i = t_0$, ou seja, seu único termo $t_0 = 0$.
+
+    Passo indutivo: Suponha $k$ tal que .... Logo, para $k + 1$ temos a representação $0 = \sum_{i = 0}^{k + 1} 3^i t_i$.
+
+    Caso $t_0 = -1$: então $\sum_{i = 1}^{k + 1} 3^i t_i = \sum_{i = 0}^k 3^{k + 1} t_{i + 1} = 3 \sum_{i = 0}^k 3^i t_{i + 1} = 1$. Logo, um espaço $\sum_{i = 0}^k 3^i t_{i + 1} = \frac{1}{3} \not\in \integer$, que é impossível dado que $3^i, t_{i + 1} \in \integer$ e $k$ é finito.
+
+    Caso $t_0 = 1$: Similar
+
+    caso $t_0 = 0$: então, $0 = 0 + \sum_{i = 0}^k 3^i t_{i + 1}$, pela hipótese indutiva, também $t_i = 0$ para $1 \leq i \leq k + 1$.
+
+    Caso $n > 0$: Suponha duas representações $n = \sum_{i = 0}^{k_1} 3^i t_i$ e $n = \sum_{i = 0}^{k_2} 3^i s_i$. Seja $k = \max\{k_1, k_2\}$ e considere $t_i = s_j = 0$ para $i > k_1$ e $j > k_2$ de forma que $n = \sum_{i = 0}^k 3^i t_i$ e $n = \sum_{i = 0}^k 3^i s_i$.
+
+    \begin{align*}
+        m_1 = \frac{n - t_0}{3} = \sum_{i = 0}^k 3^i t_{i + 1} && m_2 = \frac{n - s_0}{3} = \sum_{i = 0}^k 3^i s_{i + 1}
+    \end{align*}
+
+    Como $m_1, m_2 \in \natural$, então $n - t_0 \equiv n - s_0 \dmod{3}$. Logo, $t_0 \equiv s_0 \dmod{3}$, ou seja, $t_0 - s_0 = 3 x$ para um $x \in \integer$. Como $t_0, s_0 \in \{-1, 0, 1\}$, então $-3 < -2 \leq t_0 - s_0 \leq 2 < 3$, portanto, $-1 < x < 1$ ou seja, $x = 0$ e $t_0 = s_0$. Assim, $m_1 = m_2$, e pela hipótese indutiva, $t_i = s_i$ para $1 \leq i \leq k$. Como $t_0 = s_0$, o teorema segue.
+\end{proof}
 
 % ~
 
