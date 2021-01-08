@@ -20,9 +20,9 @@ if __name__ == "__main__":
     import sys
     # sys.argv = "X 12.33 2 1 3 1".split()
 
-    k = float(sys.argv[-1])
+    k = int(sys.argv[-1])
     P = [int(a) for a in sys.argv[1:-1]]
 
     print(imbalance(P), k, len(P))
     for cr in constructions(P, k):
-        print(cr, imbalance(cr))
+        print(','.join(f'{c:4d}' for c in cr), '\t\t', imbalance(cr))
