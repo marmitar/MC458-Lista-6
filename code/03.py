@@ -1,16 +1,16 @@
 def ternary_dp(n: int) -> int:
     res = [-1] * (n + 1)
-    res[0] = 0
+    res[0], res[1] = 0, 1
 
-    for i in range(1, n + 1):
-        if i % 3 == 0:
-            ans = res[i // 3]
-        elif i % 3 == 1:
-            ans = res[(i - 1) // 3]
-        else:
-            ans = res[(i + 1) // 3]
 
-        res[i] = ans + 1
+    def add(idx, cnt):
+        if 0 <= idx <= n:
+            res[idx] = cnt + 1
+
+    for i in range(1, n):
+        add(3 * i - 1, res[i])
+        add(3 * i + 0, res[i])
+        add(3 * i + 1, res[i])
 
     return res[n] - 1
 
