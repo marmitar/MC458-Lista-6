@@ -3,7 +3,7 @@ from typing import overload
 
 def bounds(t: list[int], M: float) -> range:
     lo = sum(ti * 2**i for i, ti in enumerate(t))
-    return range(int(lo // M), sum(t))
+    return range(int(lo // M), sum(t)+1)
 
 def valid(t: list[int], s: list[int]) -> bool:
     for i in s:
