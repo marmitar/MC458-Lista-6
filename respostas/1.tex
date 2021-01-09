@@ -43,6 +43,8 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
     Assim, por vacuidade, podemos tomar $C^{(k + 1)} = C$. Pela demonstração anterior, temos que existe algum $C^{(0)}$, em que $c^{(0)}_{1,i} = d_i$ para todo $0 \leq i \leq k$, ou seja, $C^{(0)} = D$, como proposto.
 \end{proof}
 
+O valor de $q$ inteiro que máxima a expressão é $q = \left\lfloor \dfrac{M}{2^i} \right\rfloor$. No entanto, pelas restrições temos que limitar $q$ até $t_i$, como é feito no algoritmo abaixo.
+
 \begin{codebox}
     \Procname{$\proc{Segmentos-Ótimos}(t, k, M)$}
     \li Seja $D[0, \ldots, k]$ um vetor.
@@ -92,3 +94,13 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
     \li
     \li \kw{retorna} $(C, n)$
 \end{codebox}
+
+A função $\proc{Segmentos-Ótimos}$ tem complexidade é $\Theta(k)$, devido ao laço interno. Além disso, podemos ver que o laço da $\proc{Mínimo-Trilhos}$ executa $n + 1$. Portanto, o algoritmo por completo executa em tempo $\Theta(n k)$. No entanto, $n$ não é entrada do algoritmo, mas pode ser limitada pela entrada.
+
+Um solução para este problema poderia ser comprar um trilho de tamanho $M$ para cada um dos $S$ segmentos necessários. Note que essa solução é ótima em pouquíssimos casos, como quando apenas 1 segmento é necessário. No entanto, nenhuma solução ótima é pior que essa, já que a solução estaria desperdiçando trilhos completos. Por outro lado, o mínimo de peças seria o comprimento total dos segmentos devidido pelo tamanho de um trilho. Logo, os limites de $n$ são:
+
+\[
+    \frac{S}{M} = \frac{1}{M} \sum_{i = 0}^k t_i \leq \frac{1}{M} \sum_{i = 0}^k t_i \cdot 2^i \leq n \leq \sum_{i = 0}^k t_i = S
+\]
+
+Portanto, $T(n) \in \Theta\left(S k\right)$. A complexidade de espaço é $\Theta(k)$, já que todo espaço alocado faz parte da solução, com exceção da última chamada de $\proc{Segmentos-Ótimos}$.
