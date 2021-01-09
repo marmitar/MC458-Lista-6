@@ -1,7 +1,16 @@
+A solução será dada por lista de cortes $C = [C_1, \ldots, C_n]$, em que cada elemento é uma lista $C_i = [c_{i, 1}, \ldots, c_{i, m_i}]$ de índices $0 \leq c_{i, j} \leq k$ tal que a soma dos comprimentos representados pelos índices não ultrapasse o comprimento de um trilho, ou seja
+\[
+    \sum_{j = 1}^{m_i} 2^{c_{i, j}} \leq M, \qquad \text{ para todo } 1 \leq i \leq n
+\]
+Além disso, a lista como um todo deve suprir os segmentos necessários, então,
+\[
+    \scalebox{1.5}{\#}\biggl(\left\{(i, j) \mid c_{i, j} = s\right\}\biggr) \geq t_s
+\]
+
 \begin{theorem}[subestrutura ótima]
-    Seja $C = [c_1, \ldots, c_n]$ uma lista de $n$ cortes com número de trilhos mínimo e seja $C' = [c_1, \ldots, c_m]$, com $m \leq n$, a sublista contínua com soma mais próxima de $M$\red{, mas menor}. Então, a sublista $C - C' = [c_{m + 1}, \ldots, c_n]$ são cortes com número mínimo de trilhos.
+    Seja $C = [C_1, C_2, \ldots, C_n]$ uma lista de cortes com número de trilhos $n$ mínimo. Então, a sublista $C / C_1 = [C_2, \ldots, C_n]$ tem número de trilhos mínimo para os segmentos não tratados em $C_1$.
 \end{theorem}
 
 \begin{theorem}[escolha gulosa]
-    Seja $i \leq k$ o maior segmento com $t_i > 0$. Se ele existir, então existe uma lista de $n$ cortes $C = [c_1, \ldots, c_n]$ com menor número de trilhos tal que $c_1 = i$.
+    Seja $D$ uma lista índices cuja soma dos segmentos é máxima, sem ultrapassar o comprimento de um trilho. Se $D$ for não-vazia, então existe uma lista de cortes ótima que contém $D$.
 \end{theorem}
