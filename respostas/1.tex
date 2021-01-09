@@ -1,4 +1,4 @@
-A solução será dada por lista de cortes $C = [C_1, \ldots, C_n]$, em que cada elemento é uma lista $C_i = [c_{i, 0}, \ldots, c_{i, k}]$ de peças $0 \leq c_{i, j} \leq t_j$ tal que a soma dos comprimentos dos segmentos não ultrapasse o comprimento de um trilho, ou seja
+A solução será dada por uma lista $C = [C_1, \ldots, C_n]$, em que cada elemento é uma tupla $C_i = (c_{i, 0}, \ldots, c_{i, k})$ de peças $0 \leq c_{i, j} \leq t_j$ tal que a soma dos comprimentos dos segmentos não ultrapasse o comprimento de um trilho, ou seja,
 \[
     \sum_{j = 0}^k 2^j \cdot c_{i, j} \leq M \qquad \text{ para todo } 1 \leq i \leq n
 \]
@@ -12,38 +12,63 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
 \end{theorem}
 
 \begin{theorem}[escolha gulosa]
-    Seja $D = [d_0, \ldots, d_k]$ uma lista segmentos onde \[
+    Seja $D = (d_0, \ldots, d_k)$ uma tupla de segmentos onde \[
         d_i = \max \left\{0 \leq q \leq t_i \midd q \cdot 2^i + \sum_{j = i + 1}^k d_j \cdot 2^j \leq M \right\}
-    \] Se $D$ for não-vazia, então existe uma lista de cortes ótima que contém $D$.
+    \]
+
+    Se existir um elemento positivo em $D$, então existe um conjunto de cortes ótimo que contém $D$.
 \end{theorem}
 
 \begin{proof}
 
 \end{proof}
 
-% \begin{codebox}
-%     \Procname{$\proc{Mínimo-Trilhos}(t, k, M)$}
-%     \li Seja $C$ um \red{bla bla bla}
-%     \li $n \gets 0$
-%     \li
-%     \li $\id{max-i} \gets k$
-%     \li \kw{enquanto} $\id{max-i} \geq 0$
-%         \Do
-%     \li     \kw{enquanto} $t[\id{max-i}] \isequal 0$
-%     \li     $k \gets k + 1$
-%     \li     \kw{se} $k \modulo 3 \isequal 0$ \kw{então}
-%             \Do
-%     \li         $n \gets n / 3$
-%             \End
-%     \li     \kw{senão}, \kw{se} $k \modulo 3 \isequal 1$ \kw{então}
-%             \Do
-%     \li         $n \gets (n - 1) / 3$
-%             \End
-%     \li     \kw{senão} ~ ~ ~ \Comment{$k \modulo 3 \isequal 2$}
-%             \Do
-%     \li         $n \gets (n + 1) / 3$
-%             \End
-%         \End
-%     \li
-%     \li \kw{retorna} $k$
-% \end{codebox}
+\begin{codebox}
+    \Procname{$\proc{Segmentos-Ótimos}(t, k, M)$}
+    \li Seja $D[0, \ldots, k]$ um vetor.
+    \li
+    \li $positivo \gets \const{Falso}$
+    \li \kw{para} $i \gets k$ \kw{descendo até} $0$
+        \Do
+    \li     $D[i] = \min\left(\lfloor M / 2^i \rfloor, t[i]\right)$
+    \li     $M \gets M - D[i] \cdot 2^i$
+    \li
+    \li     \kw{se} $D[i] > 0$
+            \Do
+    \li         $positivo \gets \const{Verdadeiro}$
+            \End
+        \End
+    \li
+    \li \kw{se} $positivo$
+        \Do
+    \li     \kw{retorna} $D$
+        \End
+    \li \kw{senão}
+        \Do
+    \li     \kw{retorna} $\const{Nulo}$
+        \End
+\end{codebox}
+
+\begin{codebox}
+    \Procname{$\proc{Mínimo-Trilhos}(t, k, M)$}
+    \li Seja $C$ uma lista vazia
+    \li $n \gets 0$
+    \li
+    \li \kw{faça}
+        \Do
+    \li     $D \gets \proc{Segmentos-Ótimos}(t, k, M)$
+    \li     \kw{se} $D \ne \const{Nulo}$
+            \Do
+    \li         $n \gets n + 1$
+    \li         $C[n] \gets D$
+    \li
+    \li         \kw{para} $i = 0$ \kw{até} $k$
+                \Do
+    \li             $t[i] \gets t[i] - D[i]$
+                \End
+            \End
+        \End
+    \li \kw{enquanto} $D \ne \const{Nulo}$
+    \li
+    \li \kw{retorna} $(C, n)$
+\end{codebox}
