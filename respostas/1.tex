@@ -8,8 +8,12 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
 \]
 
 \begin{theorem}[subestrutura ótima]
-    Seja $C = [C_1, C_2, \ldots, C_n]$ uma lista de cortes com número de trilhos $n$ mínimo. Então, a sublista $C / C_1 = [C_2, \ldots, C_n]$ tem número de trilhos mínimo para os segmentos não tratados em $C_1$.
+    Seja $C = [C_1, C_2, \ldots, C_n]$ uma lista de cortes com número de trilhos $n > 0$ mínimo. Então, a sublista $C / C_1 = [C_2, \ldots, C_n]$ tem número de trilhos mínimo para os segmentos não tratados em $C_1$.
 \end{theorem}
+
+\begin{proof}
+    Seja $S = [S_1, \ldots, S_m]$ uma solução ótima para os segmentos $t'_i = t_i - c_{1, i}$, para $i \leq k$. Suponha, por contradição, que $m < n - 1$. Logo, podemos gerar uma solução $C' = [C_1, S_1, \ldots, S_m]$ com um número de trilhos $m + 1 < n$ melhor que a solução ótima para o problema original. Logo, $m \geq n - 1$. Portanto, como $C / C_1$ tem $n - 1$ trilhos, ela deve ser uma solução ótima.
+\end{proof}
 
 \begin{theorem}[escolha gulosa]
     Seja $D = (d_0, \ldots, d_k)$ uma tupla de segmentos onde \[
