@@ -16,11 +16,27 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
         d_i = \max \left\{0 \leq q \leq t_i \midd q \cdot 2^i + \sum_{j = i + 1}^k d_j \cdot 2^j \leq M \right\}
     \]
 
-    Se existir um elemento positivo em $D$, então existe um conjunto de cortes ótimo que contém $D$.
+    Se existir um elemento positivo em $D$, então existe uma lista de cortes ótima que contém $D$.
 \end{theorem}
 
 \begin{proof}
+    Suponha que $D$ tem algum elemento positivo e seja $C$ uma lista de cortes ótima. Se $C$ contém $D$, não resta nada a provar, então suponha que $C$ não contém $D$. Note que como existe um $d_j > 0$, então também existe um $t_i > 0$. Portanto, $C = [C_1, \ldots, C_n]$ é não-vazio.
 
+    Considere que $C^{(j)}$ é alguma solução ótima tal que $c_{1, s} = d_s$ para todo $j \leq s \leq k$. Suponha que existe algum $C^{(j + 1)}$. A partir disso, vamos provar que existe $C^{(j)}$.
+
+    \begin{casos}
+        \item $c^{(j + 1)}_{1, j} > d_j$. Pela definição de $d_j$ como maior valor possível e como $C^{(j + 1)}_1$ tem o elementos finais iguais a $D$, isso implica que ou $c^{(j + 1)}_{1, j} > t_j$ ou $\sum_{i = j}^k c^{(j + 1)}_{1, i} \cdot 2^i > M$. Isso contradiz a suposição de que $C^{(j + 1)}$ é uma solução, portanto esse caso é impossível.
+
+        \item $c^{(j + 1)}_{1, j} = d_j$. Etão, temos $C^{(j)} = C^{(j + 1)}$, como esperado.
+
+        \item $c^{(j + 1)}_{1, j} < d_j$. Seja $q_1$ o maior inteiro tal que $q_1 \cdot 2^j \leq \sum_{i = 0}^{j - 1} c^{(j + 1)}_{1, i} \cdot 2^i$. Como os comprimentos são potências de 2, então podemos juntar segmentos menores que $j$ em $q_1$ grupos que somam $2^j$ e trocar cada um com outras tuplas de $C^{(j + 1)}$ mantendo a soma dos comprimentos de cada tupla. Seja $C'$ a solução gerada nesse processo.
+
+        Para os $q_2 = d_j - c^{(j + 1)}_{1, j} - q_1$ segmentos de tamanho $j$ restantes, temos que $M - \sum_{i = 0}^k c'_{1, i} \geq q_2 \cdot 2^j - \sum_{i = 0}^{j - 1} c'_{1, i} \cdot 2^i \geq (q_2 - 1) \cdot 2^j$. Então, se $q_2 = 0$, temos $C^{(j)} = C'$ como solução. Caso contrário, podemos trocar os segmentos menores por um segmento $j$ de outra tupla e absorver outros $q_2 - 1$ segmentos $j$, mantendo a soma dos comprimentos de $C'_1$ limitada por $M$. Assim, teremos $C''$ como uma nova solução, tal que $c''_{1, j} = d_j$ e $C^{(j)} = C''$.
+    \end{casos}
+
+    ~
+
+    Assim, por vacuidade, podemos tomar $C^{(k + 1)} = C$. Pela demonstração anterior, temos que existe algum $C^{(0)}$, em que $c^{(0)}_{1,i} = d_i$ para todo $0 \leq i \leq k$, ou seja, $C^{(0)} = D$, como proposto.
 \end{proof}
 
 \begin{codebox}
