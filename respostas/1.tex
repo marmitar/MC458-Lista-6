@@ -58,13 +58,13 @@ O valor de $q$ inteiro que máxima a expressão é $q = \left\lfloor \dfrac{M}{2
     \li     $D[i] = \min\left(\lfloor M / 2^i \rfloor, t[i]\right)$
     \li     $M \gets M - D[i] \cdot 2^i$
     \li
-    \li     \kw{se} $D[i] > 0$
+    \li     \kw{se} $D[i] > 0$ \kw{então}
             \Do
     \li         $positivo \gets \const{Verdadeiro}$
             \End
         \End
     \li
-    \li \kw{se} $positivo$
+    \li \kw{se} $positivo$ \kw{então}
         \Do
     \li     \kw{retorna} $D$
         \End
@@ -81,7 +81,7 @@ O valor de $q$ inteiro que máxima a expressão é $q = \left\lfloor \dfrac{M}{2
     \li
     \li \kw{faça} $D \gets \proc{Segmentos-Ótimos}(t, k, M)$
         \Do
-    \li     \kw{se} $D \ne \const{Nulo}$
+    \li     \kw{se} $D \ne \const{Nulo}$ \kw{então}
             \Do
     \li         $n \gets n + 1$
     \li         $C[n] \gets D$
