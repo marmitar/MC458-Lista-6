@@ -35,7 +35,10 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
 
         \item $c^{(j + 1)}_{1, j} < d_j$. Seja $q_1$ o maior inteiro tal que $q_1 \cdot 2^j \leq \sum_{i = 0}^{j - 1} c^{(j + 1)}_{1, i} \cdot 2^i$. Como os comprimentos são potências de 2, então podemos juntar segmentos menores que $j$ em $q_1$ grupos que somam $2^j$ e trocar cada um com outras tuplas de $C^{(j + 1)}$ mantendo a soma dos comprimentos de cada tupla. Seja $C'$ a solução gerada nesse processo.
 
-        Para os $q_2 = d_j - c^{(j + 1)}_{1, j} - q_1$ segmentos de tamanho $j$ restantes, temos que $\sum_{i = 0}^k c'_{1, i} \leq \sum_{i = 0}^{j - 1} c'_{1, i} \cdot 2^i + M - q_2 \cdot 2^j \leq M - (q_2 - 1) \cdot 2^j$. Então, se $q_2 = 0$, temos $C^{(j)} = C'$ como solução. Caso contrário, podemos trocar os segmentos menores por um segmento $j$ de outra tupla e absorver outros $q_2 - 1$ segmentos $j$, mantendo a soma dos comprimentos de $C'_1$ menor ou igual a $M$. Assim, teremos $C''$ como uma nova solução, tal que $c''_{1, j} = d_j$ e, portanto, $C^{(j)} = C''$.
+        Para os $q_2 = d_j - c^{(j + 1)}_{1, j} - q_1$ segmentos de tamanho $j$ restantes, temos que \[
+            (q_2 - 1) \cdot 2^j + \sum_{i = 0}^k c'_{1, i} \cdot 2^i < \sum_{i = 0}^k c'_{1, i} \cdot 2^i + q_2 \cdot 2^j - \sum_{i = 0}^{j - 1} c'_{1, i} \leq M
+        \]
+        Então, se $q_2 = 0$, temos $C^{(j)} = C'$ como solução. Caso contrário, podemos trocar os segmentos menores por um segmento $j$ de outra tupla e absorver outros $q_2 - 1$ segmentos $j$, mantendo a soma dos comprimentos de $C'_1$ menor ou igual a $M$. Assim, teremos $C''$ como uma nova solução, tal que $c''_{1, j} = d_j$ e, portanto, $C^{(j)} = C''$.
     \end{casos}
 
     ~
@@ -76,9 +79,8 @@ O valor de $q$ inteiro que máxima a expressão é $q = \left\lfloor \dfrac{M}{2
     \li Seja $C$ uma lista vazia
     \li $n \gets 0$
     \li
-    \li \kw{faça}
+    \li \kw{faça} $D \gets \proc{Segmentos-Ótimos}(t, k, M)$
         \Do
-    \li     $D \gets \proc{Segmentos-Ótimos}(t, k, M)$
     \li     \kw{se} $D \ne \const{Nulo}$
             \Do
     \li         $n \gets n + 1$
