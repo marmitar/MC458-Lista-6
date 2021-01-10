@@ -65,14 +65,15 @@ def min_imbalance_gr(S: list[int]) -> tuple[int, list[int]]:
             if si < sgd:
                 sgd = si
 
-    k = min(sgd - inf, sup - lgu) // 2
+    print(sgd, lgu, sgd - inf, sup - lgu)
+    k = (min(sgd - inf, sup - lgu) + 1) // 2
     cfg = [si+k*d for si, d in zip(S, ans)]
     return k, cfg
 
 
 if __name__ == "__main__":
     import sys, base64
-    sys.argv = "X 4 1 8 10 20 13 721437".split()
+    # sys.argv = "X 4 1 8 10 20 13 721437".split()
 
     P = [int(a) for a in sys.argv[1:]]
     P.sort()
@@ -87,7 +88,7 @@ if __name__ == "__main__":
     if k1 != k2:
         args = ' '.join(sys.argv[1:])
         key = hash(args).to_bytes(8, 'little', signed=True)
-        key = base64.b64encode(key)
+        key = base64.urlsafe_b64encode(key)
 
         with open(f'{key}.txt', 'w') as file:
             print(args, file=file)
