@@ -15,6 +15,13 @@ def constructions(P: Sequence[int], k: int=1) -> Iterator[tuple[int]]:
     for i in range(2 ** len(P)):
         yield tuple(p + s*k for p, s in zip(P, seq(i)))
 
+def show(C: tuple[int]):
+    print(','.join(f'{c:4d}' for c in C), '\t\t', imbalance(C))
+
+
+def minimum(P: Sequence[int], k: int=1) -> tuple[int]:
+    return min(constructions(P, k), key=imbalance)
+
 
 if __name__ == "__main__":
     import sys
@@ -22,7 +29,13 @@ if __name__ == "__main__":
 
     k = int(sys.argv[-1])
     P = [int(a) for a in sys.argv[1:-1]]
+    P.sort()
+
+    all = False
+    all = True
+    if all:
+        for cr in constructions(P, k):
+            show(cr)
 
     print(imbalance(P), k, len(P))
-    for cr in constructions(P, k):
-        print(','.join(f'{c:4d}' for c in cr), '\t\t', imbalance(cr))
+    show(minimum(P, k))
