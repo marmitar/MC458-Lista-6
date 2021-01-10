@@ -41,7 +41,7 @@ def min_imbalance_sk(S: list[int]) -> tuple[int, int]:
 T = TypeVar('T')
 def skip(it: Iterable[T], n: int=1) -> Iterator[T]:
     it = iter(it)
-    for i in range(n):
+    for _ in range(n):
         next(it)
     return it
 
@@ -50,13 +50,12 @@ def min_imbalance_gr(S: list[int]) -> tuple[int, list[int]]:
     if len(S) == 1:
         return 0
 
-    inf, sup = min(S), max(S)
-
     ans = [None] * len(S)
-    ans[0], ans[-1] = 1, -1
-    lgu, sgd = S[0], S[-1]
 
-    for i, si in skip(enumerate(S[:-1])):
+    inf, sup = min(S), max(S)
+    lgu, sgd = inf, sup
+
+    for i, si in enumerate(S):
         if sup - si > si - inf:
             ans[i] = 1
             if si > lgu:
