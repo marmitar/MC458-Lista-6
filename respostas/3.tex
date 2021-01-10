@@ -1,24 +1,24 @@
 \begin{theorem}[subestrutura ótima]
-    Seja $n$ um inteiro com representação mínima \\$T = [t_0, t_1, \ldots, t_k]$, sendo $k > 0$. Então, $[t_1, \ldots, t_k]$ é uma representação mínima de $\dfrac{n - t_0}{3}$.
+    Seja $n$ um inteiro com representação mínima \\$T = \langle t_0, t_1, \ldots, t_k \rangle$, sendo $k > 0$. Então, $\langle t_1, \ldots, t_k \rangle$ é uma representação mínima de $\dfrac{n - t_0}{3}$.
 \end{theorem}
 
 \begin{proof}[\textbf{Demonstração}]
-    Considere $m = (n - t_0) / 3$ e sua representação mínima $R = [r_0, r_1, \ldots, r_{l^*}]$ de tamanho $l^*$. Suponha agora uma representação $S = [s_0, \ldots, s_l]$ de $m$ que não é ótima, isto é, $l > l^*$. Assim, temos que:
+    Considere $m = (n - t_0) / 3$ e sua representação mínima $R = \langle r_0, r_1, \ldots, r_{l^*} \rangle$ de tamanho $l^*$. Suponha agora uma representação $S = \langle s_0, \ldots, s_l \rangle$ de $m$ que não é ótima, isto é, $l > l^*$. Assim, temos que:
     \begin{align*}
         n &= 3 m + t_0 \\
         &= t_0 + 3 \left(r_0 + r_1 \cdot 3 + \cdots + r_{l^*} \cdot 3^l\right) \\
         &= t_0 + r_0 \cdot 3 + r_1 \cdot 3^2 + \cdots + r_{l^*} \cdot 3^{l^*+1}
     \end{align*}
-    Então, temos a representação $R' = [t_0, r_0, \ldots, r_{l^*}]$ para $n$. Da mesma forma, temos que $S' = [t_0, s_0, \ldots, s_l]$ representando o mesmo número. Entretanto,
+    Então, temos a representação $R' = \langle t_0, r_0, \ldots, r_{l^*} \rangle$ para $n$. Da mesma forma, temos que $S' = \langle t_0, s_0, \ldots, s_l \rangle$ representando o mesmo número. Entretanto,
     \[
         \abs{R'} = \abs{R} + 1 = l^* + 2 < l + 2 = \abs{S} + 1 = \abs{S'}
     \]
 
-    Ou seja, a representação $S'$ não é ótima. Portanto, pela contrapositiva, para qualquer representação $A$ de $n$, se ela for mínima, $A - [t_0]$ será uma representação mínima de $m$. Como $T$ é ótima, o teorema segue.
+    Ou seja, a representação $S'$ não é ótima. Portanto, pela contrapositiva, para qualquer representação $A$ de $n$, se ela for mínima, $A - \langle t_0 \rangle$ será uma representação mínima de $m$. Como $T$ é ótima, o teorema segue.
 \end{proof}
 
 \begin{theorem}[escolha gulosa]
-    Seja $[t_0, t_1, \ldots, t_k]$ a representação mínima de $n$. Então, o primeiro dígito é $t_0 = n - 3 \lfloor (n + 1) / 3 \rfloor$.
+    Seja $\langle t_0, t_1, \ldots, t_k \rangle$ a representação mínima de $n$. Então, o primeiro dígito é $t_0 = (n + 1) \bmod 3 - 1$.
 \end{theorem}
 
 \begin{proof}
@@ -27,14 +27,16 @@
 
 \begin{codebox}
     \Procname{$\proc{Mínimo-Dígitos}(n)$}
-    \li \kw{se} $n <= 1$ \kw{então}
+    \li \kw{se} $n \leq 1$ \kw{então}
         \Do
-    \li     \kw{retorna} $0$
+    \li     \kw{retorna} $(0, \langle n\rangle)$
         \End
     \li \kw{senão}
         \Do
-    \li     $t0 \gets ((n + 1) \modulo 3) - 1$
-    \li     \kw{retorna} $\proc{Mínimo-Dígitos}((n - t0) / 3)$
+    \li     $t_0 \gets ((n + 1) \bmod 3) - 1$
+    \li     $(k, T) \gets \proc{Mínimo-Dígitos}((n - t_0) / 3)$
+    \li     $T \gets \proc{Concatena}(\langle t_0\rangle, T)$
+    \li     \kw{retorna} $(k + 1, T)$
         \End
 \end{codebox}
 
