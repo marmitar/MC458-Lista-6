@@ -27,12 +27,15 @@ if __name__ == "__main__":
     import sys
     # sys.argv = "X 12.33 2 1 3 1".split()
 
-    k = int(sys.argv[-1])
-    P = [int(a) for a in sys.argv[1:-1]]
+    all = False
+    if (k := sys.argv.pop()).startswith('-'):
+        all = True
+        k = sys.argv.pop()
+
+    k = int(k)
+    P = [int(a) for a in sys.argv[1:]]
     P.sort()
 
-    all = False
-    all = True
     if all:
         for cr in constructions(P, k):
             show(cr)
