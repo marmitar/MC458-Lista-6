@@ -1,8 +1,12 @@
 Considere um deslocamento $T = (t_1, \ldots, t_n)$ como uma sequência, com $t_i = -1$ ou $t_i = +1$ para todo $i \leq n$, de forma que $P_T = (p_1 + t_1 k, \ldots, p_n + t_n k)$ é uma das $2^n$ possíveis sequências construídas a partir de $P$ e $k$.
 
+\itemdsep
+
 \begin{theorem}[subestrutura ótima]
     Seja $T = (t_1, t_2, \ldots, t_n)$ um deslocamento que gera a sequência $P_T$ com desequilíbrio mínimo. Se a subsequência $P' = (p_2, \ldots, p_n)$ contém o máximo e o mínimo de $P$, então o deslocamento $T' = (t_2, \ldots, t_n)$ também gera uma sequência $P'_{T'}$ de desequilíbrio mínimo.
 \end{theorem}
+
+\itemdsep
 
 \begin{theorem}[escolha gulosa]
     Seja $T = (t_1, \ldots, t_n)$ um deslocamento que gera a sequência $P_T$ com desequilíbrio mínimo, $p_{\max} = \max_{1 \leq i \leq n} p_i$ e $p_{\min} = \min_{1 \leq i \leq n} p_i$. Então,
@@ -13,6 +17,8 @@ Considere um deslocamento $T = (t_1, \ldots, t_n)$ como uma sequência, com $t_i
         \end{cases}
     \]
 \end{theorem}
+
+\itemdsep
 
 \begin{codebox}
     \Procname{$\proc{Desequilíbrio-Mínimo}(P, n)$}
@@ -46,5 +52,7 @@ Considere um deslocamento $T = (t_1, \ldots, t_n)$ como uma sequência, com $t_i
     \li $\id{max-diff} \gets \min(\id{p-sup} - \id{p-min}, \id{p-max} - \id{p-inf})$
     \li \kw{retorna} $\lceil \id{max-diff} / 2 \rceil$
 \end{codebox}
+
+\itemdsep
 
 Podemos ver que todos os laços na função executam no máximo $n$ vezes. Então, a complexidade de tempo do algoritmo é $T(n) \in \Theta(n)$. Como não é usado nenhum armazenamento adicional, o espaço tem complexidade constante, $E(n) \in \Theta(1)$.

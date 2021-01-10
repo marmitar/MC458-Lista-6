@@ -17,6 +17,8 @@
     Ou seja, a representação $S'$ não é ótima. Portanto, pela contrapositiva, para qualquer representação $A$ de $n$, se ela for mínima, $A - \langle t_0 \rangle$ será uma representação mínima de $m$. Como $\langle t_0, t_1, \ldots, t_k \rangle$ é ótima, o teorema segue.
 \end{proof}
 
+\itemdsep
+
 \begin{theorem}[escolha gulosa]
     Seja $\langle t_0, \ldots, t_k \rangle$ uma representação mínima de $n$. Então, o primeiro dígito é $t_0 = (n + 1) \bmod 3 - 1$.
 \end{theorem}
@@ -37,6 +39,8 @@
     \end{casos}
 \end{proof}
 
+\itemdsep
+
 \begin{codebox}
     \Procname{$\proc{Mínimo-Dígitos}(n)$}
     \li \kw{se} $n \isequal 0$ \kw{então}
@@ -54,6 +58,8 @@
         \End
     \li \kw{retorna} $(k, T)$
 \end{codebox}
+
+\itemdsep
 
 Pelo laço da função $\proc{Mínimo-Dígitos}$, temos que a complexidade de tempo é $T(n) \in \Theta(k)$. Com $k$ dígitos o menor número representável é com $t_i = -1$ e o maior é $t_i = +1$, para $i < k$. Para que $n$ seja positivo e $T$ seja a representação mínima, é necessário que $t_k = 1$. Logo,
 \[

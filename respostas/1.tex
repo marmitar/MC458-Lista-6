@@ -7,6 +7,8 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
     \sum_{i = 1}^n c_{i, j} = t_j \qquad \text{ para todo } 0 \leq j \leq k
 \]
 
+\itemdsep
+
 \begin{theorem}[subestrutura ótima]
     Seja $C = [C_1, C_2, \ldots, C_n]$ uma lista de cortes com número de trilhos $n > 0$ mínimo. Então, a sublista $C / C_1 = [C_2, \ldots, C_n]$ tem número de trilhos mínimo para os segmentos não tratados em $C_1$.
 \end{theorem}
@@ -22,6 +24,8 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
 
     Se existir um elemento positivo em $D$, então existe uma lista de cortes ótima que contém $D$.
 \end{theorem}
+
+\itemdsep
 
 \begin{proof}
     Suponha que $D$ tem algum elemento positivo e seja $C$ uma lista de cortes ótima. Se $C$ contém $D$, não resta nada a provar, então suponha que $C$ não contém $D$. Note que como existe um $d_j > 0$, então também existe um $t_i > 0$. Portanto, $C = [C_1, \ldots, C_n]$ é não-vazio.
@@ -45,6 +49,8 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
 
     Assim, por vacuidade, podemos tomar $C^{(k + 1)} = C$. Pela demonstração anterior, temos que existe algum $C^{(0)}$, em que $c^{(0)}_{1,i} = d_i$ para todo $0 \leq i \leq k$, ou seja, $C^{(0)}_1 = D$, como proposto.
 \end{proof}
+
+\itemdsep
 
 O valor de $q$ inteiro que máxima a expressão é $q = \left\lfloor \dfrac{M}{2^i} \right\rfloor$. No entanto, pelas restrições temos que limitar $q$ até $t_i$, como é feito no algoritmo abaixo.
 
@@ -96,6 +102,8 @@ O valor de $q$ inteiro que máxima a expressão é $q = \left\lfloor \dfrac{M}{2
     \li
     \li \kw{retorna} $(C, n)$
 \end{codebox}
+
+\itemdsep
 
 A função $\proc{Segmentos-Ótimos}$ tem complexidade é $\Theta(k)$, devido ao laço interno. Além disso, podemos ver que o laço da $\proc{Mínimo-Trilhos}$ executa $n + 1$. Portanto, o algoritmo por completo executa em tempo $\Theta(n k)$. No entanto, $n$ não é entrada do algoritmo, mas pode ser limitada pela entrada.
 
