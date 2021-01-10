@@ -1,8 +1,15 @@
-$(a, b, c)$, com $D_1 = b - a - 2k$, mas $a - c + 2k$ e $c - b + 2k$, então $c - a$ ou $b - c$.
+Considere um deslocamento $T = (t_1, \ldots, t_n)$ como uma sequência, com $t_i = -1$ ou $t_i = +1$ para todo $i \leq n$, de forma que $P_T = (p_1 + t_1 k, \ldots, p_n + t_n k)$ é uma das $2^n$ possíveis sequências construídas a partir de $P$ e $k$.
 
-$P = (p_1, \ldots, p_n)$ ordenado $p_i \leq p_j$ para todos $i < j$.
-\[
-    k \leq \left\lfloor \frac{p_n - p_1}{2} \right\rfloor
-\]
+\begin{theorem}[subestrutura ótima]
+    Seja $T = (t_1, t_2, \ldots, t_n)$ um deslocamento que gera a sequência $P_T$ com desequilíbrio mínimo. Se a subsequência $P' = (p_2, \ldots, p_n)$ contém o máximo e o mínimo de $P$, então o deslocamento $T' = (t_2, \ldots, t_n)$ também gera uma sequência $P'_{T'}$ de desequilíbrio mínimo.
+\end{theorem}
 
-$P' = (p'_1, \ldots, p'_n)$ tal que $p'_i = p_i \pm k$.
+\begin{theorem}[escolha gulosa]
+    Seja $T = (t_1, \ldots, t_n)$ um deslocamento que gera a sequência $P_T$ com desequilíbrio mínimo, $p_{\max} = \max_{1 \leq i \leq n} p_i$ e $p_{\min} = \min_{1 \leq i \leq n} p_i$. Então,
+    \[
+        t_1 = \begin{cases}
+            +1, & \text{se } \abs{p_1 - p_{\max}} > \abs{p_1 - p_{\min}} \\
+            -1, & \text{caso contrário}
+        \end{cases}
+    \]
+\end{theorem}
