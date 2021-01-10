@@ -14,8 +14,10 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
 \end{theorem}
 
 \begin{proof}
-    Seja $S = [S_1, \ldots, S_m]$ uma solução ótima para os segmentos $t'_i = t_i - c_{1, i}$, para $i \leq k$. Suponha, por contradição, que $m < n - 1$. Logo, podemos gerar uma solução $C' = [C_1, S_1, \ldots, S_m]$ com um número de trilhos $m + 1 < n$ melhor que a solução ótima para o problema original. Logo, $m \geq n - 1$. Portanto, como $C / C_1$ tem $n - 1$ trilhos, ela deve ser uma solução ótima.
+    Seja $S = [S_1, \ldots, S_m]$ uma solução ótima para os segmentos $t'_i = t_i - c_{1, i}$, para $i \leq k$. Suponha, por contradição, que $m < n - 1$. Logo, podemos gerar uma solução $C' = [C_1, S_1, \ldots, S_m]$ com um número de trilhos $m + 1 < n$. Como $n$ é ótimo para o problema original, isso é impossível. Portanto, $m \geq n - 1$ e, como $C / C_1$ tem $n - 1$ trilhos, ela deve ser uma solução ótima.
 \end{proof}
+
+\itemdsep
 
 \begin{theorem}[escolha gulosa]
     Seja $D = (d_0, \ldots, d_k)$ uma tupla de segmentos onde \[
@@ -25,34 +27,32 @@ Além disso, a lista como um todo deve suprir os segmentos necessários, então,
     Se existir um elemento positivo em $D$, então existe uma lista de cortes ótima que contém $D$.
 \end{theorem}
 
-\itemdsep
-
 \begin{proof}
-    Suponha que $D$ tem algum elemento positivo e seja $C$ uma lista de cortes ótima. Se $C$ contém $D$, não resta nada a provar, então suponha que $C$ não contém $D$. Note que como existe um $d_j > 0$, então também existe um $t_i > 0$. Portanto, $C = [C_1, \ldots, C_n]$ é não-vazio.
+    Suponha que $D$ tem algum elemento positivo e seja $C$ uma lista de cortes ótima. Se $C$ contém $D$, não resta nada a provar, então suponha que $C$ não contém $D$. Note que como existe um $d_i > 0$, então também existe um $t_i > 0$. Portanto, $C = [C_1, \ldots, C_n]$ é não-vazio.
 
     Considere que $C^{(j)}$ é alguma solução ótima tal que $c^{(j)}_{1, s} = d_s$ para todo $j \leq s \leq k$. Suponha que existe algum $C^{(j + 1)}$. A partir disso, vamos provar que existe $C^{(j)}$.
 
     \begin{casos}
-        \item $c^{(j + 1)}_{1, j} > d_j$. Pela definição de $d_j$ como maior valor possível e como $C^{(j + 1)}_1$ tem o elementos finais iguais a $D$, o que implica que ou $c^{(j + 1)}_{1, j} > t_j$ ou $\sum_{i = j}^k c^{(j + 1)}_{1, i} \cdot 2^i > M$. Isso contradiz a suposição de que $C^{(j + 1)}$ é uma solução, portanto esse caso é impossível.
+        \item $c^{(j + 1)}_{1, j} > d_j$. Por definição, $d_j$ é o maior valor possível e, como $C^{(j + 1)}_1$ tem o elementos finais iguais a $D$, isso implica que $c^{(j + 1)}_{1, j} > t_j$ ou $\sum_{i = j}^k c^{(j + 1)}_{1, i} \cdot 2^i > M$. Isso contradiz a suposição de que $C^{(j + 1)}$ é uma solução, portanto esse caso é impossível.
 
         \item $c^{(j + 1)}_{1, j} = d_j$. Etão, temos $C^{(j)} = C^{(j + 1)}$, como esperado.
 
         \item $c^{(j + 1)}_{1, j} < d_j$. Seja $q_1$ o maior inteiro tal que $q_1 \cdot 2^j \leq \sum_{i = 0}^{j - 1} c^{(j + 1)}_{1, i} \cdot 2^i$. Como os comprimentos são potências de 2, então podemos juntar segmentos menores que $j$ em $q_1$ grupos que somam $2^j$ e trocar cada um com outras tuplas de $C^{(j + 1)}$ mantendo a soma dos comprimentos de cada tupla. Seja $C'$ a solução gerada nesse processo.
 
         Para os $q_2 = d_j - c^{(j + 1)}_{1, j} - q_1$ segmentos de tamanho $j$ restantes, temos que \[
-            (q_2 - 1) \cdot 2^j + \sum_{i = 0}^k c'_{1, i} \cdot 2^i < \sum_{i = 0}^k c'_{1, i} \cdot 2^i + q_2 \cdot 2^j - \sum_{i = 0}^{j - 1} c'_{1, i} \leq M
+            (q_2 - 1) \cdot 2^j + \sum_{i = 0}^k c'_{1, i} \cdot 2^i < \sum_{i = 0}^k c'_{1, i} \cdot 2^i + q_2 \cdot 2^j - \sum_{i = 0}^{j - 1} c'_{1, i} \cdot 2^i \leq M
         \]
-        Então, se $q_2 = 0$, temos $C^{(j)} = C'$ como solução. Caso contrário, podemos trocar os segmentos menores por um segmento $j$ de outra tupla e absorver outros $q_2 - 1$ segmentos $j$, mantendo a soma dos comprimentos de $C'_1$ menor ou igual a $M$. Assim, teremos $C''$ como uma nova solução, tal que $c''_{1, j} = d_j$ e, portanto, $C^{(j)} = C''$.
+        Então, se $q_2 = 0$, temos $C^{(j)} = C'$ como solução. Caso contrário, podemos trocar os segmentos menores por um segmento $j$ de outra tupla e absorver outros $q_2 - 1$ segmentos $j$, mantendo a soma dos comprimentos de $C'_1$ menor ou igual a $M$. Assim, teremos $C''$ como uma nova solução, tal que $c''_{1, j} = d_j$ e, portanto, $C^{(j)} = C''$, ainda com $n$ tuplas.
     \end{casos}
 
     ~
 
-    Assim, por vacuidade, podemos tomar $C^{(k + 1)} = C$. Pela demonstração anterior, temos que existe algum $C^{(0)}$, em que $c^{(0)}_{1,i} = d_i$ para todo $0 \leq i \leq k$, ou seja, $C^{(0)}_1 = D$, como proposto.
+    Por fim, podemos tomar $C^{(k + 1)} = C$ por vacuidade. Pela demonstração anterior, temos que existe algum $C^{(0)}$, em que $c^{(0)}_{1,i} = d_i$ para todo $0 \leq i \leq k$, ou seja, $C^{(0)}_1 = D$, como proposto.
 \end{proof}
 
 \itemdsep
 
-O valor de $q$ inteiro que máxima a expressão é $q = \left\lfloor \dfrac{M}{2^i} \right\rfloor$. No entanto, pelas restrições temos que limitar $q$ até $t_i$, como é feito no algoritmo abaixo.
+O valor de $q$ inteiro que maximiza a expressão é $q = \left\lfloor \dfrac{M}{2^i} \right\rfloor$. No entanto, pelas restrições temos que limitar $q$ até $t_i$, como é feito no algoritmo abaixo.
 
 \begin{codebox}
     \Procname{$\proc{Segmentos-Ótimos}(t, k, M)$}
@@ -105,12 +105,12 @@ O valor de $q$ inteiro que máxima a expressão é $q = \left\lfloor \dfrac{M}{2
 
 \itemdsep
 
-A função $\proc{Segmentos-Ótimos}$ tem complexidade é $\Theta(k)$, devido ao laço interno. Além disso, podemos ver que o laço da $\proc{Mínimo-Trilhos}$ executa $n + 1$. Portanto, o algoritmo por completo executa em tempo $\Theta(n k)$. No entanto, $n$ não é entrada do algoritmo, mas pode ser limitada pela entrada.
+A função $\proc{Segmentos-Ótimos}$ tem complexidade $\Theta(k)$, devido ao laço interno. Além disso, podemos ver que o laço da $\proc{Mínimo-Trilhos}$ executa $n + 1$ vezes. Portanto, o algoritmo por completo tem tempo $\Theta(n k)$. Note que $n$ não é entrada do algoritmo, mas pode ser limitada pela entrada.
 
-Um solução para este problema poderia ser comprar um trilho de tamanho $M$ para cada um dos $S$ segmentos necessários. Note que essa solução é ótima em pouquíssimos casos, como quando apenas 1 segmento é necessário. No entanto, nenhuma solução ótima é pior que essa, já que a solução estaria desperdiçando trilhos completos. Por outro lado, o mínimo de peças seria o comprimento total dos segmentos devidido pelo tamanho de um trilho. Logo, os limites de $n$ são:
+Um solução para este problema poderia ser comprar um trilho de tamanho $M$ para cada um dos $S$ segmentos necessários. Essa solução é ótima em pouquíssimos casos, entrentanto, nenhuma solução ótima é pior que essa, já que a solução estaria desperdiçando trilhos completos. Por outro lado, o mínimo de peças seria o comprimento total dos segmentos dividido pelo tamanho de um trilho. Logo, os limites de $n$ são:
 
 \[
     \frac{S}{M} = \frac{1}{M} \sum_{i = 0}^k t_i \leq \frac{1}{M} \sum_{i = 0}^k t_i \cdot 2^i \leq n \leq \sum_{i = 0}^k t_i = S
 \]
 
-Portanto, $T(n) \in \Theta\left(S k\right)$. A complexidade de espaço também é $\Theta(S k)$, já que essa é a memória necessária para a solução.
+Portanto, $T(t, k) \in \Theta\left(S k\right)$. A complexidade de espaço também é $\Theta(S k)$, já que essa é a memória necessária para a solução.

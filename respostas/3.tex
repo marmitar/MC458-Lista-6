@@ -56,13 +56,14 @@
     \li     $n \gets (n - T[k]) / 3$
     \li     $k \gets k + 1$
         \End
+    \li
     \li \kw{retorna} $(k, T)$
 \end{codebox}
 
 \itemdsep
 
-Pelo laço da função $\proc{Mínimo-Dígitos}$, temos que a complexidade de tempo é $T(n) \in \Theta(k)$. Com $k$ dígitos o menor número representável é com $t_i = -1$ e o maior é $t_i = +1$, para $i < k$. Para que $n$ seja positivo e $T$ seja a representação mínima, é necessário que $t_k = 1$. Logo,
+Pelo laço da função $\proc{Mínimo-Dígitos}$, temos que a complexidade de tempo é $T(n) \in \Theta(k)$. Com $k$ dígitos, o menor número representável é com $t_i = -1$ e o maior é $t_i = +1$, para $i < k$. Para que $n$ seja positivo e $T$ seja a representação mínima, é necessário que $t_k = 1$. Logo,
 \[
     3^{k - 1} \leq \frac{3^k + 1}{2} = 3^k - \sum_{i = 0}^{k - 1} 3^i \leq n \leq \sum_{i = 0}^k 3^k = \frac{3^{k + 1} - 1}{2} \leq 3^{k + 1}
 \]
-Assim, podemos limitar $k$ por $\log_3 n - 1 \leq k \leq \log_3 n + 1$. Portanto, $T(n) \in \Theta(k) = \Theta(\lg n)$. Devido ao armazenamento do resultado, a complexidade de espaço também é $\Theta(k) = \Theta(\lg n)$.
+Assim, podemos limitar $k$ por $\log_3 n - 1 \leq k \leq \log_3 n + 1$. Portanto, $T(n) \in \Theta(\lg n)$. Devido ao armazenamento do resultado, a complexidade de espaço também é $\Theta(k) = \Theta(\lg n)$.
