@@ -1,5 +1,5 @@
 \begin{theorem}[subestrutura ótima]
-    Seja $n$ um inteiro com representação mínima \\$T = \langle t_0, t_1, \ldots, t_k \rangle$, sendo $k > 0$. Então, $\langle t_1, \ldots, t_k \rangle$ é uma representação mínima de $\dfrac{n - t_0}{3}$.
+    Seja $n$ um inteiro com representação mínima $\langle t_0, t_1, \ldots, t_k \rangle$, sendo $k > 0$. Então, $\langle t_1, \ldots, t_k \rangle$ é uma representação mínima de $\dfrac{n - t_0}{3}$.
 \end{theorem}
 
 \begin{proof}[\textbf{Demonstração}]
@@ -14,15 +14,27 @@
         \abs{R'} = \abs{R} + 1 = l^* + 2 < l + 2 = \abs{S} + 1 = \abs{S'}
     \]
 
-    Ou seja, a representação $S'$ não é ótima. Portanto, pela contrapositiva, para qualquer representação $A$ de $n$, se ela for mínima, $A - \langle t_0 \rangle$ será uma representação mínima de $m$. Como $T$ é ótima, o teorema segue.
+    Ou seja, a representação $S'$ não é ótima. Portanto, pela contrapositiva, para qualquer representação $A$ de $n$, se ela for mínima, $A - \langle t_0 \rangle$ será uma representação mínima de $m$. Como $\langle t_0, t_1, \ldots, t_k \rangle$ é ótima, o teorema segue.
 \end{proof}
 
 \begin{theorem}[escolha gulosa]
-    Seja $\langle t_0, t_1, \ldots, t_k \rangle$ a representação mínima de $n$. Então, o primeiro dígito é $t_0 = (n + 1) \bmod 3 - 1$.
+    Seja $\langle t_0, \ldots, t_k \rangle$ uma representação mínima de $n$. Então, o primeiro dígito é $t_0 = (n + 1) \bmod 3 - 1$.
 \end{theorem}
 
 \begin{proof}
-    ...
+    Seja $r = (n + 1) \bmod 3 - 1$ e note que
+    \[
+        n - t_0 = \sum_{i = 0}^k t_i \cdot 3^i - t_0 = 3 \left(\sum_{i = 1}^k t_i \cdot 3^{i-1} \right)
+    \]
+    Como $t_i \in \integer$ e $3^{i - 1} \in \integer$ para $i > 0$, então $n - t_0 \equiv 0 \dmod{3}$. Portanto, $n \equiv t_0 \dmod{3}$.
+
+    ~
+
+    \begin{casos}
+        \item $n \equiv 0 \dmod{3}$. Então, $(n + 1) \equiv 1 \dmod{3}$ e $r = 0$. Como $-1 \not\equiv 0 \dmod{3}$ e $1 \not\equiv 0 \dmod{3}$, temos que $t_0 = 0 = r$.
+        \item $n \equiv 1 \dmod{3}$. De forma similar, temos que $t_0 = 1 = r$.
+        \item $n \equiv 2 \dmod{3}$. Note que $(n + 1) \equiv 0 \dmod{3}$, então $r = -1 = t_0$.
+    \end{casos}
 \end{proof}
 
 \begin{codebox}
