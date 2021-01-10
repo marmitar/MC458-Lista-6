@@ -52,6 +52,19 @@
         \End
 \end{codebox}
 
-\[
-    T(n) = T(n / 3) + \Theta(1) \in \Theta(\log(n))
-\]
+Supondo a operação de concatenação é constante (como em listas ligadas), então a complexidade de tempo pode ser dada por:
+\begin{align*}
+    T(0) &= T(1) = a_1 > 0 \\
+    T(n) &= T\left(\frac{n - (n + 1) \bmod 3 + 1}{3}\right) + \Theta(1) \leq T\left(\frac{n + 1}{3}\right) + a_2
+\end{align*}
+
+Note que $T(n) \leq c \lg n$ para $c = a_1 + a_2$ e $n \geq 2$. Dado que $T(2) = T(3) = T(4) = a_1 + a_2 = c \lg 2$ e, se $T(k) \leq c \lg k$, temos que
+\begin{align*}
+    T(n) &\leq T\left(\frac{n + 1}{3}\right) + a_2 \\
+    &\leq c \lg \left(\frac{n + 1}{3}\right) + a_2 \\
+    &\leq c \lg \frac{n}{2} + a_2 \\
+    &= c \lg n - c + a_2 \\
+    &\leq c \lg n
+\end{align*}
+
+Por outro lado, como $T(n) \geq T((n - 1) / 3) + a_2$, podemos mostrar de forma similar que $T(n) \geq d \lg n$, quando $d \leq (a_1 + a_2) / 2$ e $n \geq 2$. Portanto, $T(n) \in \Theta(\lg n)$. Pelas chamadas revursivas e pelo armazenamento do resultado, a complexidade de espaço também é $\Theta(\lg n)$.
