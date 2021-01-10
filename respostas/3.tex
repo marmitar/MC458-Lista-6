@@ -39,21 +39,6 @@
 
 \begin{codebox}
     \Procname{$\proc{Mínimo-Dígitos}(n)$}
-    \li \kw{se} $n \leq 1$ \kw{então}
-        \Do
-    \li     \kw{retorna} $(0, \langle n\rangle)$
-        \End
-    \li \kw{senão}
-        \Do
-    \li     $t_0 \gets ((n + 1) \bmod 3) - 1$
-    \li     $(k, T) \gets \proc{Mínimo-Dígitos}((n - t_0) / 3)$
-    \li     $T \gets \proc{Concatena}(\langle t_0\rangle, T)$
-    \li     \kw{retorna} $(k + 1, T)$
-        \End
-\end{codebox}
-
-\begin{codebox}
-    \Procname{$\proc{Mínimo-Dígitos}(n)$}
     \li \kw{se} $n \isequal 0$ \kw{então}
         \Do
     \li     \kw{retorna} $(0, [0])$
@@ -70,19 +55,8 @@
     \li \kw{retorna} $(k, T)$
 \end{codebox}
 
-Supondo a operação de concatenação é constante (como em listas ligadas), então a complexidade de tempo pode ser dada por:
-\begin{align*}
-    T(0) &= T(1) = a_1 > 0 \\
-    T(n) &= T\left(\frac{n - (n + 1) \bmod 3 + 1}{3}\right) + \Theta(1) \leq T\left(\frac{n + 1}{3}\right) + a_2
-\end{align*}
-
-Note que $T(n) \leq c \lg n$ para $c = a_1 + a_2$ e $n \geq 2$. Dado que $T(2) = T(3) = T(4) = a_1 + a_2 = c \lg 2$ e, se $T(k) \leq c \lg k$, temos que
-\begin{align*}
-    T(n) &\leq T\left(\frac{n + 1}{3}\right) + a_2 \\
-    &\leq c \lg \left(\frac{n + 1}{3}\right) + a_2 \\
-    &\leq c \lg \frac{n}{2} + a_2 \\
-    &= c \lg n - c + a_2 \\
-    &\leq c \lg n
-\end{align*}
-
-Por outro lado, como $T(n) \geq T((n - 1) / 3) + a_2$, podemos mostrar de forma similar que $T(n) \geq d \lg n$, quando $d \leq (a_1 + a_2) / 2$ e $n \geq 2$. Portanto, $T(n) \in \Theta(\lg n)$. Pelas chamadas revursivas e pelo armazenamento do resultado, a complexidade de espaço também é $\Theta(\lg n)$.
+Pelo laço da função $\proc{Mínimo-Dígitos}$, temos que a complexidade de tempo é $T(n) \in \Theta(k)$. Com $k$ dígitos o menor número representável é com $t_i = -1$ e o maior é $t_i = +1$, para $i < k$. Para que $n$ seja positivo e $T$ seja a representação mínima, é necessário que $t_k = 1$. Logo,
+\[
+    3^{k - 1} \leq \frac{3^k + 1}{2} = 3^k - \sum_{i = 0}^{k - 1} 3^i \leq n \leq \sum_{i = 0}^k 3^k = \frac{3^{k + 1} - 1}{2} \leq 3^{k + 1}
+\]
+Assim, podemos limitar $k$ por $\log_3 n - 1 \leq k \leq \log_3 n + 1$. Portanto, $T(n) \in \Theta(k) = \Theta(\lg n)$. Devido ao armazenamento do resultado, a complexidade de espaço também é $\Theta(k) = \Theta(\lg n)$.
