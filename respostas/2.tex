@@ -8,8 +8,43 @@ Considere um deslocamento $T = (t_1, \ldots, t_n)$ como uma sequência, com $t_i
     Seja $T = (t_1, \ldots, t_n)$ um deslocamento que gera a sequência $P_T$ com desequilíbrio mínimo, $p_{\max} = \max_{1 \leq i \leq n} p_i$ e $p_{\min} = \min_{1 \leq i \leq n} p_i$. Então,
     \[
         t_1 = \begin{cases}
-            +1, & \text{se } \abs{p_1 - p_{\max}} > \abs{p_1 - p_{\min}} \\
+            +1, & \text{se } \abs{p_1 - p_{\max}} < \abs{p_1 - p_{\min}} \\
             -1, & \text{caso contrário}
         \end{cases}
     \]
 \end{theorem}
+
+\begin{codebox}
+    \Procname{$\proc{Desequilíbrio-Mínimo}(P, n)$}
+    \li \kw{se} $n \isequal 1$ \kw{então}
+        \Do
+    \li     \kw{retorna} 0
+        \End
+    \li
+    \li $\id{p-min} \gets P[1]$
+    \li $\id{p-max} \gets P[1]$
+    \li \kw{para} $i \gets 2$ \kw{até} $n$
+        \Do
+    \li     $\id{p-min} \gets \min(\id{p-min}, P[i])$
+    \li     $\id{p-max} \gets \max(\id{p-max}, P[i])$
+        \End
+    \li
+    \li $\id{p-inf} \gets \id{p-min}$
+    \li $\id{p-sup} \gets \id{p-max}$
+    \li \kw{para} $i \gets 1$ \kw{até} $n$
+        \Do
+    \li     \kw{se} $\id{p-max} - P[i] > P[i] - \id{p-min}$ \kw{então}
+            \Do
+    \li         $\id{p-inf} \gets \min(\id{p-inf}, P[i])$
+            \End
+    \li     \kw{senão}
+            \Do
+    \li         $\id{p-sup} \gets \min(\id{p-sup}, P[i])$
+            \End
+        \End
+    \li
+    \li $\id{max-diff} \gets \min(\id{p-sup} - \id{p-min}, \id{p-max} - \id{p-inf})$
+    \li \kw{retorna} $\lceil \id{max-diff} / 2 \rceil$
+\end{codebox}
+
+Podemos ver que todos os laços na função executam no máximo $n$ vezes. Então, a complexidade de tempo do algoritmo é $T(n) \in \Theta(n)$. Como não é usado nenhum armazenamento adicional, o espaço tem complexidade constante, $E(n) \in \Theta(1)$.
