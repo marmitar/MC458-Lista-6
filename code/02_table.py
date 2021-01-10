@@ -19,8 +19,20 @@ def show(C: tuple[int, ...]):
     print(','.join(f'{c:4d}' for c in C), '\t\t', imbalance(C))
 
 
-def minimum(P: Sequence[int], k: int=1) -> tuple[int, ...]:
-    return min(constructions(P, k), key=imbalance)
+def minimum(P: Sequence[int], k: int=1) -> list[tuple[int, ...]]:
+    cr = constructions(P, k)
+
+    c = next(cr)
+    min = imbalance(c)
+    ans = [c]
+    for c in cr:
+        d = imbalance(c)
+        if d < min:
+            min, ans = d, [c]
+        elif d == min:
+            ans.append(c)
+
+    return ans
 
 
 if __name__ == "__main__":
@@ -41,4 +53,5 @@ if __name__ == "__main__":
             show(cr)
 
     print(imbalance(P), k, len(P))
-    show(minimum(P, k))
+    for cr in minimum(P, k):
+        show(cr)
