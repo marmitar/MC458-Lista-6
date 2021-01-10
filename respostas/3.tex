@@ -52,6 +52,24 @@
         \End
 \end{codebox}
 
+\begin{codebox}
+    \Procname{$\proc{Mínimo-Dígitos}(n)$}
+    \li \kw{se} $n \isequal 0$ \kw{então}
+        \Do
+    \li     \kw{retorna} $(0, [0])$
+        \End
+    \li
+    \li Seja $T$ uma lista vazia
+    \li $k \gets 0$
+    \li \kw{enquanto} $n > 0$ \kw{faça}
+        \Do
+    \li     $T[k] \gets ((n + 1) \bmod 3) - 1$
+    \li     $n \gets (n - T[k]) / 3$
+    \li     $k \gets k + 1$
+        \End
+    \li \kw{retorna} $(k, T)$
+\end{codebox}
+
 Supondo a operação de concatenação é constante (como em listas ligadas), então a complexidade de tempo pode ser dada por:
 \begin{align*}
     T(0) &= T(1) = a_1 > 0 \\
