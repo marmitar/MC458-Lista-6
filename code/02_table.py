@@ -11,15 +11,15 @@ def seq(k: int) -> Iterator[int]:
         k = k >> 1
 
 
-def constructions(P: Sequence[int], k: int=1) -> Iterator[tuple[int]]:
+def constructions(P: Sequence[int], k: int=1) -> Iterator[tuple[int, ...]]:
     for i in range(2 ** len(P)):
         yield tuple(p + s*k for p, s in zip(P, seq(i)))
 
-def show(C: tuple[int]):
+def show(C: tuple[int, ...]):
     print(','.join(f'{c:4d}' for c in C), '\t\t', imbalance(C))
 
 
-def minimum(P: Sequence[int], k: int=1) -> tuple[int]:
+def minimum(P: Sequence[int], k: int=1) -> tuple[int, ...]:
     return min(constructions(P, k), key=imbalance)
 
 
