@@ -4,7 +4,7 @@
 \def\psup{\ensuremath{p_{\mathrm{sup}}}\xspace}
 
 \begin{theorem}[subestrutura ótima]
-    Sejam $k$ e $S = (s_1, \ldots, s_n)$ uma solução de desequilíbrio mínimo. Considere também que $\pmin < \pmax$ são o mínimo e máximo de $P$. Então, para todo $1 \leq i \leq n$,
+    Sejam $k$ e $S = (s_1, \ldots, s_n)$ uma solução de desequilíbrio mínimo. Considere também que \pmin e \pmax são o mínimo e máximo de $P$. Então, para todo $1 \leq i \leq n$,
     \[
         s_i = \begin{cases}
             p_i + k & \text{se } \abs{p_i - \pmax} > \abs{p_i - \pmin} \\
@@ -13,16 +13,6 @@
         \end{cases}
     \]
 \end{theorem}
-
-\begin{proof}
-    Suponha que exista um $i$ tal que $\abs{p_i - \pmax} > \abs{p_i - \pmin}$, mas $s_i = p_i - k$. Seja $S'$ a solução tal que $s'_i = p_i + k$ e $s'_j = s_j$ para todo $j \ne i$. Se $p_i = \pmin$, então $s_i$ é o menor valor de $S$.
-
-    Nesse caso, já que $k \leq \left\lceil \pmax - \pmin / 2 \right\rceil$ para ser ótimo, temos que o mínimo de $S'$ deverá ser maior que o de $S$, sem mudar o máximo. Então, $D(S') < D(S)$, contradizendo a suposição inicial.
-
-    Além disso, mesmo se $p_i > \pmin$, como ele está mais próximo do mínimo, o novo máximo em $S'$ terá um diferença menor que o mínimo, em relação a $S$. Isto é, $s'_{\max} - s_{\max} \leq s'_{\min} - s_{\min}$, ou seja, $D(S') \leq D(S)$, que é impossível.
-
-    Logo, $s_i = p_i + k$. De forma similar, temos que $s_j = p_j - k$ quando $\abs{p_j - \pmax} < \abs{p_j - \pmin}$. Se $\abs{p_l - \pmax} = \abs{p_l - \pmin}$, isto é, $p_l = (\pmax + \pmin) / 2$, as duas soluções são válidas.
-\end{proof}
 
 \itemdsep
 
@@ -34,22 +24,6 @@
 
     Pode-se gerar uma sequência de desequilíbrio mínimo.
 \end{theorem}
-
-\begin{proof}
-    Para valores pequenos de $k$, $s_{\mathrm{min}} = \pmin + k$ continua sendo o mínimo da sequência e $s_{\mathrm{max}} = \pmax - k$, o máximo. No entanto, quando $k > (\psup - \pmin) / 2$ e $k > (\pmax - \pinf) / 2$, o mínimo se torna $s_{\mathrm{sup}} = \psup - k$ e o máximo, $s_{\mathrm{inf}} = \pinf + k$.
-
-    Então, na faixa de transição, em que
-    \[
-        \frac{\psup - \pmin}{2} \leq k \leq \frac{\pmax - \pinf}{2}
-    \]
-
-    Ou
-    \[
-        \frac{\pmax - \pinf}{2} \leq k \leq \frac{\psup - \pmin}{2}
-    \]
-
-    Pode-se alcançar o desequilíbrio mínimo. Desse forma, o $k$ escolhido como \\$\left\lceil (\min\left\{\psup - \pmin, \pmax - \pinf\right\})/2\right\rceil$ é semrpe válido.
-\end{proof}
 
 \itemdsep
 
