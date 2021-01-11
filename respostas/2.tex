@@ -1,32 +1,60 @@
-Considere um deslocamento $T = (t_1, \ldots, t_n)$ como uma sequência, com $t_i = -1$ ou $t_i = +1$ para todo $i \leq n$, de forma que $P_T = (p_1 + t_1 k, \ldots, p_n + t_n k)$ é uma das $2^n$ possíveis sequências construídas a partir de $P$ e $k$.
-
-\itemdsep
+\def\pmin{\ensuremath{p_{\min}}\xspace}
+\def\pmax{\ensuremath{p_{\max}}\xspace}
+\def\pinf{\ensuremath{p_{\mathrm{inf}}}\xspace}
+\def\psup{\ensuremath{p_{\mathrm{sup}}}\xspace}
 
 \begin{theorem}[subestrutura ótima]
-    Seja $T = (t_1, t_2, \ldots, t_n)$ um deslocamento que gera a sequência $P_T$ com desequilíbrio mínimo. Se a subsequência $P' = (p_2, \ldots, p_n)$ contém o máximo e o mínimo de $P$, então o deslocamento $T' = (t_2, \ldots, t_n)$ também gera uma sequência $P'_{T'}$ de desequilíbrio mínimo.
+    Sejam $k$ e $S = (s_1, \ldots, s_n)$ uma solução de desequilíbrio mínimo. Considere também que $\pmin < \pmax$ são o mínimo e máximo de $P$. Então, para todo $1 \leq i \leq n$,
+    \[
+        s_i = \begin{cases}
+            p_i + k & \text{se } \abs{p_i - \pmax} > \abs{p_i - \pmin} \\
+            p_i - k & \text{se } \abs{p_i - \pmax} < \abs{p_i - \pmin} \\
+            p_i \pm k & \text{caso contrário}
+        \end{cases}
+    \]
 \end{theorem}
+
+\begin{proof}
+    Suponha que exista um $i$ tal que $\abs{p_i - \pmax} > \abs{p_i - \pmin}$, mas $s_i = p_i - k$. Seja $S'$ a solução tal que $s'_i = p_i + k$ e $s'_j = s_j$ para todo $j \ne i$. Se $p_i = \pmin$, então $s_i$ é o menor valor de $S$.
+
+    Nesse caso, já que $k \leq \left\lceil \pmax - \pmin / 2 \right\rceil$ para ser ótimo, temos que o mínimo de $S'$ deverá ser maior que o de $S$, sem mudar o máximo. Então, $D(S') < D(S)$, contradizendo a suposição inicial.
+
+    Além disso, mesmo se $p_i > \pmin$, como ele está mais próximo do mínimo, o novo máximo em $S'$ terá um diferença menor que o mínimo, em relação a $S$. Isto é, $s'_{\max} - s_{\max} \leq s'_{\min} - s_{\min}$, ou seja, $D(S') \leq D(S)$, que é impossível.
+
+    Logo, $s_i = p_i + k$. De forma similar, temos que $s_j = p_j - k$ quando $\abs{p_j - \pmax} < \abs{p_j - \pmin}$. Se $\abs{p_l - \pmax} = \abs{p_l - \pmin}$, isto é, $p_l = (\pmax + \pmin) / 2$, as duas soluções são válidas.
+\end{proof}
 
 \itemdsep
 
 \begin{theorem}[escolha gulosa]
-    Seja $T = (t_1, \ldots, t_n)$ um deslocamento que gera a sequência $P_T$ com desequilíbrio mínimo, $p_{\max} = \max_{1 \leq i \leq n} p_i$ e $p_{\min} = \min_{1 \leq i \leq n} p_i$. Então,
+    Seja $\pinf = \max\{p_i \mid \pmax - p_i > p_i - \pmin\}$ e $\psup = \min\{p_i \mid \pmax \leq p_i - \pmin\}$. Então, com
     \[
-        t_1 = \begin{cases}
-            +1, & \text{se } \abs{p_1 - p_{\max}} < \abs{p_1 - p_{\min}} \\
-            -1, & \text{caso contrário}
-        \end{cases}
+        k = \left\lceil\frac{\min\left\{\psup - \pmin, \pmax - \pinf\right\}}{2}\right\rceil
     \]
+
+    Pode-se gerar uma sequência de desequilíbrio mínimo.
 \end{theorem}
+
+\begin{proof}
+    Para valores pequenos de $k$, $s_{\mathrm{min}} = \pmin + k$ continua sendo o mínimo da sequência e $s_{\mathrm{max}} = \pmax - k$, o máximo. No entanto, quando $k > (\psup - \pmin) / 2$ e $k > (\pmax - \pinf) / 2$, o mínimo se torna $s_{\mathrm{sup}} = \psup - k$ e o máximo, $s_{\mathrm{inf}} = \pinf + k$.
+
+    Então, na faixa de transição, em que
+    \[
+        \frac{\psup - \pmin}{2} \leq k \leq \frac{\pmax - \pinf}{2}
+    \]
+
+    Ou
+    \[
+        \frac{\pmax - \pinf}{2} \leq k \leq \frac{\psup - \pmin}{2}
+    \]
+
+    Pode-se alcançar o desequilíbrio mínimo. Desse forma, o $k$ escolhido como \\$\left\lceil (\min\left\{\psup - \pmin, \pmax - \pinf\right\})/2\right\rceil$ é semrpe válido.
+\end{proof}
 
 \itemdsep
 
 \begin{codebox}
     \Procname{$\proc{Desequilíbrio-Mínimo}(P, n)$}
-    \li \kw{se} $n \isequal 1$ \kw{então}
-        \Do
-    \li     \kw{retorna} 0
-        \End
-    \li
     \li $\id{p-min} \gets P[1]$
     \li $\id{p-max} \gets P[1]$
     \li \kw{para} $i \gets 2$ \kw{até} $n$
@@ -41,7 +69,7 @@ Considere um deslocamento $T = (t_1, \ldots, t_n)$ como uma sequência, com $t_i
         \Do
     \li     \kw{se} $\id{p-max} - P[i] > P[i] - \id{p-min}$ \kw{então}
             \Do
-    \li         $\id{p-inf} \gets \min(\id{p-inf}, P[i])$
+    \li         $\id{p-inf} \gets \max(\id{p-inf}, P[i])$
             \End
     \li     \kw{senão}
             \Do
